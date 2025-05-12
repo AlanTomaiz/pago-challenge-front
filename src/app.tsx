@@ -1,5 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
+
+import ContactForm from './components/form'
 
 const Container = styled.div`
   padding: 2rem;
@@ -11,6 +12,7 @@ export default function App() {
   return (
     <Container>
       <h1>Agenda de Endereços</h1>
+      <ContactForm />
     </Container>
   )
 }

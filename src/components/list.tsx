@@ -1,10 +1,14 @@
 import { Check, Pen } from '@phosphor-icons/react'
 import { useState } from 'react'
+
+import { useToast } from '../hooks/toast'
 import { useContacts } from '../store/contacts'
 import { Button, FilterBar, Input, Item, List, Wrapper } from './styles'
 
 export default function ContactList() {
   const { contacts, removeContact, updateContact } = useContacts()
+  const { addToast } = useToast()
+
   const [edditing, setEdditing] = useState('')
   const [display, setDisplay] = useState('')
   const [filters, setFilters] = useState({
@@ -34,6 +38,13 @@ export default function ContactList() {
     updateContact(edditing, display)
     setEdditing('')
     setDisplay('')
+
+    addToast({ type: 'success', message: 'Endereço atualizado com sucesso!' })
+  }
+
+  const handleRemove = (id: string) => {
+    removeContact(id)
+    addToast({ type: 'success', message: 'Endereço removido com sucesso!' })
   }
 
   return (
@@ -80,7 +91,7 @@ export default function ContactList() {
                 <Button stype="transparent" onClick={() => setEdditing(row.id)}>
                   <Pen size={22} weight="thin" />
                 </Button>
-                <Button stype="default" onClick={() => removeContact(row.id)}>
+                <Button stype="default" onClick={() => handleRemove(row.id)}>
                   Remover
                 </Button>
               </>

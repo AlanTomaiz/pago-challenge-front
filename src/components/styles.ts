@@ -80,3 +80,48 @@ export const Input = styled.input`
 
   outline: none;
 `
+
+export const Container = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 0 30px 30px 0;
+  overflow: hidden;
+`
+
+type ToastProps = {
+  type: 'error' | 'success' | 'default'
+}
+
+export const ToastItem = styled.div<ToastProps>`
+  width: max-content;
+  max-height: 460px;
+  padding: 15px 15px 15px 8px;
+  box-shadow:
+    0 1px 10px 0 rgba(0, 0, 0, 0.1),
+    0 2px 15px 0 rgba(0, 0, 0, 0.05);
+  user-select: none;
+  animation:
+    fadeIn 0.6s ease-in forwards,
+    fadeOut 0.6s ease-out forwards 6s;
+  cursor: pointer;
+
+  background: #fff;
+  border-left: 8px solid #d1d5db;
+
+  ${(props) =>
+    props.type === 'success' &&
+    css`
+      border-color: #2ecc7180;
+    `}
+
+  ${(props) =>
+    props.type === 'error' &&
+    css`
+      border-color: #e74c3c80;
+    `}
+
+    & + div {
+    margin-top: 8px;
+  }
+`

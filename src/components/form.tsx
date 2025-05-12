@@ -12,6 +12,8 @@ const Form = styled.form`
 `
 
 const Input = styled.input`
+  flex: 1;
+
   color: #555555;
   height: 40px;
   padding: 10px;

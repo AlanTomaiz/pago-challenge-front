@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import ContactForm from './components/form'
+import ContactList from './components/list'
 
 const Container = styled.div`
   padding: 2rem;
@@ -13,6 +14,7 @@ export default function App() {
     <Container>
       <h1>Agenda de Endereços</h1>
       <ContactForm />
+      <ContactList />
     </Container>
   )
 }

@@ -19,6 +19,7 @@ export interface Contact {
 interface ContactState {
   contacts: Contact[]
   addContact: (contact: Contact) => void
+  removeContact: (id: string) => void
 }
 
 export const useContacts = create<ContactState>()(
@@ -27,6 +28,10 @@ export const useContacts = create<ContactState>()(
       contacts: [],
       addContact: (contact) =>
         set((state) => ({ contacts: [...state.contacts, contact] })),
+      removeContact: (id) =>
+        set((state) => ({
+          contacts: state.contacts.filter((c) => c.id !== id),
+        })),
     }),
     { name: 'contacts-storage' },
   ),

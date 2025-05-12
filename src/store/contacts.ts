@@ -20,6 +20,7 @@ interface ContactState {
   contacts: Contact[]
   addContact: (contact: Contact) => void
   removeContact: (id: string) => void
+  updateContact: (id: string, displayName: string) => void
 }
 
 export const useContacts = create<ContactState>()(
@@ -30,7 +31,13 @@ export const useContacts = create<ContactState>()(
         set((state) => ({ contacts: [...state.contacts, contact] })),
       removeContact: (id) =>
         set((state) => ({
-          contacts: state.contacts.filter((c) => c.id !== id),
+          contacts: state.contacts.filter((row) => row.id !== id),
+        })),
+      updateContact: (id, displayName) =>
+        set((state) => ({
+          contacts: state.contacts.map((row) =>
+            row.id === id ? { ...row, displayName } : row,
+          ),
         })),
     }),
     { name: 'contacts-storage' },

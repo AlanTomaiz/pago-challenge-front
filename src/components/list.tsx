@@ -1,9 +1,12 @@
+import { Check, Pen } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useContacts } from '../store/contacts'
 import { Button, FilterBar, Input, Item, List, Wrapper } from './styles'
 
 export default function ContactList() {
-  const { contacts, removeContact } = useContacts()
+  const { contacts, removeContact, updateContact } = useContacts()
+  const [edditing, setEdditing] = useState('')
+  const [display, setDisplay] = useState('')
   const [filters, setFilters] = useState({
     username: '',
     cidade: '',
@@ -11,7 +14,7 @@ export default function ContactList() {
     displayName: '',
   })
 
-  const handleFilter = (event: any) => {
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setFilters((prev) => ({ ...prev, [name]: value }))
   }
@@ -26,6 +29,12 @@ export default function ContactList() {
       row.displayName.toLowerCase().includes(displayName.toLowerCase())
     )
   })
+
+  const handleUpdate = () => {
+    updateContact(edditing, display)
+    setEdditing('')
+    setDisplay('')
+  }
 
   return (
     <>
@@ -43,12 +52,39 @@ export default function ContactList() {
         {filtered.map((row) => (
           <Item key={row.id}>
             <Wrapper>
-              <strong>{row.displayName}</strong> ({row.username})<br />
+              {edditing ? (
+                <Input
+                  placeholder="Nome de exibição"
+                  style={{ width: '100%', marginBottom: '8px' }}
+                  onChange={(event) => setDisplay(event.target.value)}
+                />
+              ) : (
+                <>
+                  <strong>{row.displayName}</strong> ({row.username})
+                </>
+              )}
+              <br />
               {`${row.address.logradouro}, ${row.address.bairro}, ${row.address.localidade} - ${row.address.uf}`}
             </Wrapper>
-            <Button stype="default" onClick={() => removeContact(row.id)}>
-              Remover
-            </Button>
+            {edditing ? (
+              <>
+                <Button stype="transparent" onClick={handleUpdate}>
+                  <Check size={22} weight="thin" />
+                </Button>
+                <Button stype="default" onClick={() => setEdditing('')}>
+                  Cancelar
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button stype="transparent" onClick={() => setEdditing(row.id)}>
+                  <Pen size={22} weight="thin" />
+                </Button>
+                <Button stype="default" onClick={() => removeContact(row.id)}>
+                  Remover
+                </Button>
+              </>
+            )}
           </Item>
         ))}
       </List>

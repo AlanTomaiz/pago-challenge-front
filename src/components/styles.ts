@@ -13,7 +13,7 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   display: flex;
-  align-items: center;
+  gap: 8px;
   background: #fff;
   padding: 16px;
   margin-bottom: 8px;
@@ -25,10 +25,14 @@ export const Wrapper = styled.div`
 `
 
 type ButtonProps = {
-  stype: 'default' | 'info'
+  stype: 'default' | 'info' | 'transparent'
 }
 
 export const Button = styled.button<ButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   height: 40px;
   max-height: 40px;
   padding: 10px 15px;
@@ -45,6 +49,12 @@ export const Button = styled.button<ButtonProps>`
     css`
       color: #fff;
       background: #7284ff;
+    `}
+
+  ${(props) =>
+    props.stype === 'transparent' &&
+    css`
+      background: transparent;
     `}
 `
 

@@ -1,45 +1,9 @@
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useContacts } from '../store/contacts'
-
-const Form = styled.form`
-  margin-top: 24px;
-  display: flex;
-  gap: 8px;
-`
-
-const Input = styled.input`
-  flex: 1;
-
-  color: #555555;
-  height: 40px;
-  padding: 10px;
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
-  transition: 0.4s;
-
-  &:focus {
-    border-color: #6675df;
-  }
-
-  outline: none;
-`
-
-const Button = styled.button`
-  height: 40px;
-  max-height: 40px;
-  padding: 10px 15px;
-  border: 1px solid #ededed;
-  background: #7284ff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-`
+import { Button, Form, Input } from './styles'
 
 type FormProps = {
   username: string
@@ -78,7 +42,9 @@ export default function ContactForm() {
         required
       />
       <Input {...register('cep')} placeholder="CEP" required />
-      <Button type="submit">Buscar e Adicionar</Button>
+      <Button stype="info" type="submit">
+        Buscar e Adicionar
+      </Button>
     </Form>
   )
 }
